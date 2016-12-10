@@ -1,0 +1,21 @@
+{ 
+    "stores" : 
+    [
+        {"store" : 
+            {
+                "name" : "Delhaize",
+                "lattitude" : "50.9809227",
+                "longitude" : "3.5344354"        
+            }
+        },
+        {"store" : 
+            {
+                "name" : "Delhaize",
+                "lattitude" : "50.978919",
+                "longitude" : "3.6609026"        
+            }
+        }
+        
+    ]
+
+}
