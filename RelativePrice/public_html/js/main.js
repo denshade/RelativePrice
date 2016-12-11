@@ -21,6 +21,20 @@ function recalculate()
     document.getElementById('pricePerKm').value = calculatePricePerKilometer();
 }
 
+function getMyLocation()
+{
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position)
+{
+    document.getElementById('latitude_float').value = position.coords.latitude;
+    document.getElementById('longitude_float').value = position.coords.longitude;    
+}
 function calculatePricePerKilometer()
 {
     var pricePerLiter = document.getElementById('priceFuelPerLiter').value;
