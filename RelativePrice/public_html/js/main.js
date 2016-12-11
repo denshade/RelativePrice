@@ -82,11 +82,11 @@ function populateStoreTable()
                     }
                 ]                
             };
-
+        var current = 1;
         $.each( json.stores, function( key, val ) {
             var store = val.store;
             storetable = document.getElementById('storetable');
-            var row = storetable.insertRow(1);
+            var row = storetable.insertRow(current);
             var number = row.insertCell(0);
             var storename = row.insertCell(1);
             var latitude = row.insertCell(2);
@@ -97,13 +97,52 @@ function populateStoreTable()
             var distanceCalculated = getDistanceFromLatLonInKm(document.getElementById('latitude_float').value, document.getElementById('longitude_float').value, store.lattitude, store.longitude);
 
             // Add some text to the new cells:
-            number.innerHTML    = 0;
+            number.innerHTML    = current++;
             storename.innerHTML = store.name;
             latitude.innerHTML  = store.lattitude;
             longitude.innerHTML = store.longitude;
             distance.innerHTML  = distanceCalculated + " km";
             cost.innerHTML      = pricePerKm * distanceCalculated * 2;
 
+        });
+
+
+}
+
+function populateStorePriceTable()
+{
+    
+    json = 
+            { 
+                "stores" : 
+                [
+                    {"store" : 
+                        {
+                            "name" : "Delhaize Deinze",
+                            "prices" : [
+                                {"coca cola cans" : "€8.49"}
+                            ]
+                        }
+                    },
+                ]                
+            };
+
+        $.each( json.stores, function( key, val ) {
+            var store = val.store;
+            storetable = document.getElementById('storeprice');
+            var row = storetable.insertRow(1);
+            var shop = row.insertCell(0);
+            var productName = row.insertCell(1);
+            var price = row.insertCell(2);
+            
+            $.each( store.prices, function( key, val ) {
+                $.each(val, function(key, val) {
+                    // Add some text to the new cells:
+                    shop.innerHTML    = store.name;
+                    productName.innerHTML = key;
+                    price.innerHTML  = val;                    
+                });
+            });
         });
 
 
