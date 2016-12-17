@@ -46,59 +46,18 @@ function calculatePricePerKilometer()
 }
 
 function populateStoreTable()
+{ // http://localhost:8080/store
+    
+    $.getJSON( "http://localhost:5984/prices/_all_docs?include_docs=true&conflicts=true", function( data ) {
+        workIt(data);
+    });
+}           
+function workIt(json)
 {
-    var pricePerKm = calculatePricePerKilometer();
-    json = 
-            { 
-                "stores" : 
-                [
-                    {"store" : 
-                        {
-                            "name" : "Delhaize Deinze",
-                            "lattitude" : "50.9809227", 
-                            "longitude" : "3.5344354"        
-                        }
-                    },
-                    {"store" : 
-                        {
-                            "name" : "Delhaize Zingem",
-                            "lattitude" : "50.9029995",
-                            "longitude" : "3.6538823"        
-                        }
-                    },
-                    {"store" : 
-                        {
-                            "name" : "Macro",
-                            "lattitude" : "50.978919",
-                            "longitude" : "3.6609026"        
-                        }
-                    },
-                    {"store" : 
-                        {
-                            "name" : "Colruyt Deinze",
-                            "lattitude" : "50.9807994",
-                            "longitude" : "3.5472237 "        
-                        }
-                    },
-                    {"store" : 
-                        {
-                            "name" : "Spar",
-                            "lattitude" : "50.9110302",
-                            "longitude" : "3.6056243"        
-                        }
-                    },
-                    {"store" : 
-                        {
-                            "name" : "Okay Zingem",
-                            "lattitude" : "50.9073175",
-                            "longitude" : "3.6389592"        
-                        }
-                    }
-                ]                
-            };
+        var pricePerKm = calculatePricePerKilometer();    
         var current = 1;
-        $.each( json.stores, function( key, val ) {
-            var store = val.store;
+        $.each( json.rows, function( key, val ) {
+            var store = val.doc.store;
             storetable = document.getElementById('storetable');
             var row = storetable.insertRow(current);
             var number = row.insertCell(0);
@@ -125,39 +84,24 @@ function populateStoreTable()
 
 function populateStorePriceTable()
 {
-    
-    json = 
-            { 
-                "stores" : 
-                [
-                    {"store" : 
-                        {
-                            "name" : "Delhaize Deinze",
-                            "prices" : [
-                                {"coca cola cans" : "€8.49"}
-                            ]
-                        }
-                    },
-                ]                
-            };
-
-        $.each( json.stores, function( key, val ) {
-            var store = val.store;
+    $.getJSON( "http://localhost:5984/storeprices/_all_docs?include_docs=true&conflicts=true", function( json ) {
+        
+        $.each( json.rows, function( key, val ) {
+            var store = val.doc.store;
             storetable = document.getElementById('storeprice');
             var row = storetable.insertRow(1);
             var shop = row.insertCell(0);
             var productName = row.insertCell(1);
             var price = row.insertCell(2);
+            var lastUpdate = row.insertCell(3);
             
             $.each( store.prices, function( key, val ) {
-                $.each(val, function(key, val) {
-                    // Add some text to the new cells:
-                    shop.innerHTML    = store.name;
-                    productName.innerHTML = key;
-                    price.innerHTML  = val;                    
-                });
+                productName.innerHTML = val.brandname;
+                shop.innerHTML    = store.name;
+                price.innerHTML = val.priceInEuro;
+                lastUpdate.innerHTML = new Date(val.lastupdateEpoch*1000);
             });
         });
-
+    });
 
 }
