@@ -78,14 +78,11 @@ function workIt(json)
             cost.innerHTML      = pricePerKm * distanceCalculated * 2;
 
         });
-
-
 }
 
 function populateStorePriceTable()
 {
-    $.getJSON( "http://localhost:5984/storeprices/_all_docs?include_docs=true&conflicts=true", function( json ) {
-        
+    $.getJSON( "http://localhost:5984/storeprices/_all_docs?include_docs=true&conflicts=true", function( json ) {        
         $.each( json.rows, function( key, val ) {
             var store = val.doc.store;
             storetable = document.getElementById('storeprice');
@@ -93,15 +90,30 @@ function populateStorePriceTable()
             var shop = row.insertCell(0);
             var productName = row.insertCell(1);
             var price = row.insertCell(2);
-            var lastUpdate = row.insertCell(3);
+            var package = row.insertCell(3);
+            var lastUpdate = row.insertCell(4);
             
             $.each( store.prices, function( key, val ) {
                 productName.innerHTML = val.brandname;
                 shop.innerHTML    = store.name;
                 price.innerHTML = val.priceInEuro;
-                lastUpdate.innerHTML = new Date(val.lastupdateEpoch*1000);
-            });
+                package.innerHTML = val.package;
+                lastUpdate.innerHTML = new Date(val.lastupdateEpoch * 1000).toGMTString();
+            });            
+
         });
+    });
+
+}
+
+function loadUserData()
+{
+    
+    $.getJSON( "http://localhost:5984/userdetails/b9b5b7d4348089fb794ab933f7000354", function( data ) {        
+        $('#latitude_float').val(data.lattitude);
+        $('#longitude_float').val(data.longitude);
+        $('#priceFuelPerLiter').val(data.pricePerLiter);
+        $('#fuelEfficiency').val(data.litersPerKm);
     });
 
 }
