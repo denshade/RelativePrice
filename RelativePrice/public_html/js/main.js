@@ -48,12 +48,7 @@ function calculatePricePerKilometer()
 function populateStoreTable()
 { // http://localhost:8080/store
     
-    $.getJSON( "http://localhost:5984/prices/_all_docs?include_docs=true&conflicts=true", function( data ) {
-        workIt(data);
-    });
-}           
-function workIt(json)
-{
+    $.getJSON( "http://localhost:5984/prices/_all_docs?include_docs=true&conflicts=true", function( json ) {
         var pricePerKm = calculatePricePerKilometer();    
         var current = 1;
         $.each( json.rows, function( key, val ) {
@@ -67,7 +62,7 @@ function workIt(json)
             var distance = row.insertCell(4);
             var cost = row.insertCell(5);
             
-            var distanceCalculated = getDistanceFromLatLonInKm(document.getElementById('latitude_float').value, document.getElementById('longitude_float').value, store.lattitude, store.longitude);
+            var distanceCalculated = getDistanceFromLatLonInKm($('#latitude_float').val(), $('#longitude_float').val(), store.lattitude, store.longitude);
 
             // Add some text to the new cells:
             number.innerHTML    = current++;
@@ -78,7 +73,10 @@ function workIt(json)
             cost.innerHTML      = pricePerKm * distanceCalculated * 2;
 
         });
-}
+
+    });
+}           
+
 
 function populateStorePriceTable()
 {
