@@ -92,40 +92,27 @@
 
 
 
-
-
-
-        <!-- Main jumbotron for a primary marketing message or call to action -->
-        <div class="jumbotron">
-            <div class="container">
-                <h1>My location</h1>
-                <p>My GPS coordinates.</p>
-                <form onsubmit="recalculate(); return false;">
-                    <div class="col-md-9">
-                        <label for="latitude_float">Latitude as float</label>
-                        <input  id="latitude_float" type="text" value="50.8993266">
-                        <div>
-                            <label for="longitude_float">Longitude as float</label>
-                            <input  id="longitude_float" type="text" value="3.5874647">
-                        </div>
-                        <div>
-                            <label for="priceFuelPerLiter">Price per liter</label>
-                            <input id="priceFuelPerLiter" type="text" value="1.4630">
-                        </div>
-                        <div>
-                            <label for="fuelEfficiency">Liters per 100 km.</label>
-                            <input id="fuelEfficiency" type="text" value="10">
-                        </div>
-                        <div>
-                            <label for="pricePerKm">Calculated price per km</label>
-                            <input id="pricePerKm" type="text" readonly>
-                        </div>
-                        <input type="submit" value="calculate price"/>
-                        <input type="button" value="Get my location" name="location" onclick="getMyLocation()"/>
-                    </div>
-                </form >
-            </div>
+        <div class="container">
+            <h1>Store details</h1>
+            <p>Store location and calculated travel expenses.</p>
+            <table class="table  tablesorter" id="storetable">
+                <thead>
+                    <tr>
+                        <th class="header">#</th>
+                        <th class="header">Store name</th>
+                        <th class="header">GPS location latitude</th>
+                        <th class="header">GPS location longitude</th>
+                        <th class="header">Birds eye Distance from home</th>
+                        <th class="header">Cost for trip</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
+
+        <p><hr>   
+
         <hr>
         <footer>
             <p>&copy; Lab Of Lieven</p>

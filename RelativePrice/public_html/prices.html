@@ -52,7 +52,7 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -89,43 +89,24 @@
           </div>
             </div>
         </nav>
+        <hr>
 
-
-
-
-
-
-        <!-- Main jumbotron for a primary marketing message or call to action -->
-        <div class="jumbotron">
-            <div class="container">
-                <h1>My location</h1>
-                <p>My GPS coordinates.</p>
-                <form onsubmit="recalculate(); return false;">
-                    <div class="col-md-9">
-                        <label for="latitude_float">Latitude as float</label>
-                        <input  id="latitude_float" type="text" value="50.8993266">
-                        <div>
-                            <label for="longitude_float">Longitude as float</label>
-                            <input  id="longitude_float" type="text" value="3.5874647">
-                        </div>
-                        <div>
-                            <label for="priceFuelPerLiter">Price per liter</label>
-                            <input id="priceFuelPerLiter" type="text" value="1.4630">
-                        </div>
-                        <div>
-                            <label for="fuelEfficiency">Liters per 100 km.</label>
-                            <input id="fuelEfficiency" type="text" value="10">
-                        </div>
-                        <div>
-                            <label for="pricePerKm">Calculated price per km</label>
-                            <input id="pricePerKm" type="text" readonly>
-                        </div>
-                        <input type="submit" value="calculate price"/>
-                        <input type="button" value="Get my location" name="location" onclick="getMyLocation()"/>
-                    </div>
-                </form >
-            </div>
+        <div class="container">
+            <table class="display nowrap dtr-inline tablesorter" id="storeprice">
+                <thead>
+                    <tr>
+                        <th class="header">Shop</th>
+                        <th class="header">Product name</th>
+                        <th class="header">Price</th>
+                        <th class="header">Package</th>
+                        <th class="header">Last update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
+        <p><hr>   
         <hr>
         <footer>
             <p>&copy; Lab Of Lieven</p>
