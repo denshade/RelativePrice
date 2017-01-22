@@ -32,3 +32,8 @@ div.digg {float: right; margin-left: 20px;}
 #skyscraper > div { margin-bottom: 20px; }
 #skyscraper.wide { float: none; overflow: hidden; margin-left: 0; text-align: center;}
 #skyscraper.wide > div { display: inline-block; margin-right: 20px;  margin-bottom: 0;}
+
+.transparant {
+     opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
