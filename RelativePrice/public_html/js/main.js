@@ -50,6 +50,12 @@ function populateStoreTable()
 { // http://localhost:8080/store
     
     $.getJSON( "http://localhost:5984/prices/_all_docs?include_docs=true&conflicts=true", function( json ) {
+        renderStoreTable(json);
+    });
+}           
+
+function renderStoreTable(json)
+{
         var pricePerKm = calculatePricePerKilometer();    
         var current = 1;
         $.each( json.rows, function( key, val ) {
@@ -75,15 +81,19 @@ function populateStoreTable()
             cost.innerHTML      = pricePerKm * distanceCalculated * 2;
 
         });
-
-    });
-}           
-
+}
 
 function populateStorePriceTable()
 {
     $.getJSON( "http://localhost:5984/storeprices/_all_docs?include_docs=true&conflicts=true", function( json ) {        
-        $.each( json.rows, function( key, val ) {
+        renderStorePrices(json);
+    });
+
+}
+
+function renderStorePrices(json)
+{
+            $.each( json.rows, function( key, val ) {
             var store = val.doc.store;
             storetable = document.getElementById('storeprice');
             var row = storetable.insertRow(1);
@@ -102,18 +112,20 @@ function populateStorePriceTable()
             });            
 
         });
-    });
-
 }
 
 function loadUserData()
 {
-    
-    $.getJSON( "http://localhost:5984/userdetails/b9b5b7d4348089fb794ab933f7000354", function( data ) {        
+     $.getJSON( "http://localhost:5984/userdetails/b9b5b7d4348089fb794ab933f7000354", function( data ) {    
+         renderUserData(data);
+     });
+     
+}
+
+function renderUserData(data)
+{
         $('#latitude_float').val(data.lattitude);
         $('#longitude_float').val(data.longitude);
         $('#priceFuelPerLiter').val(data.pricePerLiter);
         $('#fuelEfficiency').val(data.litersPerKm);
-    });
-
 }
