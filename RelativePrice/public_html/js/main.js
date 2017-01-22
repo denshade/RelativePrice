@@ -32,13 +32,14 @@ function getMyLocation()
 
 function showPosition(position)
 {
-    document.getElementById('latitude_float').value = position.coords.latitude;
-    document.getElementById('longitude_float').value = position.coords.longitude;    
+    $('#latitude_float').val(position.coords.latitude);
+    $('#longitude_float').val(position.coords.longitude);    
 }
+
 function calculatePricePerKilometer()
 {
-    var pricePerLiter = document.getElementById('priceFuelPerLiter').value;
-    var litersPer100Kilometer = document.getElementById('fuelEfficiency').value;
+    var pricePerLiter = $('#priceFuelPerLiter').val();
+    var litersPer100Kilometer = $('#fuelEfficiency').val();
  //    €/l l/100km
     var litersPerKilometer = litersPer100Kilometer / 100;
     var pricePerKilometer = litersPerKilometer * pricePerLiter;
@@ -55,12 +56,13 @@ function populateStoreTable()
             var store = val.doc.store;
             storetable = document.getElementById('storetable');
             var row = storetable.insertRow(current);
-            var number = row.insertCell(0);
-            var storename = row.insertCell(1);
-            var latitude = row.insertCell(2);
-            var longitude = row.insertCell(3);
-            var distance = row.insertCell(4);
-            var cost = row.insertCell(5);
+            var cell = 0;
+            var number = row.insertCell(cell++);
+            var storename = row.insertCell(cell++);
+            var latitude = row.insertCell(cell++);
+            var longitude = row.insertCell(cell++);
+            var distance = row.insertCell(cell++);
+            var cost = row.insertCell(cell++);
             
             var distanceCalculated = getDistanceFromLatLonInKm($('#latitude_float').val(), $('#longitude_float').val(), store.lattitude, store.longitude);
 

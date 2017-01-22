@@ -31,16 +31,14 @@
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-
+                $.get("navigation.html", function(data){
+                    $("#nav-placeholder").replaceWith(data);
+                });
                     $(document).ready(function ()
                     {
                      
 	// call the tablesorter plugin
                         populateStoreTable();
-                        populateStorePriceTable();
-                        loadUserData();
-                        
-
     });
     $(document).ajaxComplete(function () {
          $("#storetable").tablesorter({"sorting" : [[2,1],[0,0]]});
@@ -52,43 +50,7 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar">Prices</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Price detector</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a class="active" href="index.html">Home</a></li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stores<span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="stores.html">Search</a></li>
-                        <li><a href="#">Add</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Prices<span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="prices.html">Search</a></li>
-                        <li><a href="#">Add</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-                <li><a href="../navbar-static-top/">Static top</a></li>
-                <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-              </ul>
-          </div>
-            </div>
-        </nav>
+        <div id="nav-placeholder"></div>
 
 
 
@@ -112,7 +74,36 @@
         </div>
 
         <p><hr>   
-
+        <div class="jumbotron">
+            <div class="container">
+                <h1>My location</h1>
+                <p>My GPS coordinates.</p>
+                <form onsubmit="recalculate(); return false;">
+                    <div class="col-md-9">
+                        <label for="latitude_float">Latitude as float</label>
+                        <input  id="latitude_float" type="text" value="50.8993266">
+                        <div>
+                            <label for="longitude_float">Longitude as float</label>
+                            <input  id="longitude_float" type="text" value="3.5874647">
+                        </div>
+                        <div>
+                            <label for="priceFuelPerLiter">Price per liter</label>
+                            <input id="priceFuelPerLiter" type="text" value="1.4630">
+                        </div>
+                        <div>
+                            <label for="fuelEfficiency">Liters per 100 km.</label>
+                            <input id="fuelEfficiency" type="text" value="10">
+                        </div>
+                        <div>
+                            <label for="pricePerKm">Calculated price per km</label>
+                            <input id="pricePerKm" type="text" readonly>
+                        </div>
+                        <input type="submit" value="calculate price"/>
+                        <input type="button" value="Get my location" name="location" onclick="getMyLocation()"/>
+                    </div>
+                </form >
+            </div>
+        </div>
         <hr>
         <footer>
             <p>&copy; Lab Of Lieven</p>
