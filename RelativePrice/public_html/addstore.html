@@ -13,6 +13,12 @@
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">                
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/jq.css">
@@ -28,34 +34,43 @@
                 $.get("navigation.html", function(data){
                     $("#nav-placeholder").replaceWith(data);
                 });
-
                     $(document).ready(function ()
                     {
-                        loadUserData();
-                    });
-
+                     
+	// call the tablesorter plugin
+                        populateStoreTable();
+    });
+    $(document).ajaxComplete(function () {
+         $("#storetable").tablesorter({"sorting" : [[2,1],[0,0]]});
+    });
+    
         </script>
     </head>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
         <div id="nav-placeholder"></div>
 
-        <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="container">
-           <div id="" class="jumbotron transparant">
-               <h1>We strive for price transparency for the individual. </h1>
-               Based on your individual shopping cart we seek the optimal route while keeping an eye on 
-               <ul>
-                   <li>travel costs</li>
-                   <li>local prices</li>
-                   <li>shelf life</li>
-               </ul>
-
-            </div>
+            <h1>Add a store</h1>
+            <p>Store location and calculated travel expenses.</p>
+            <table class="table  tablesorter" id="storetable">
+                <thead>
+                    <tr>
+                        <th class="header">#</th>
+                        <th class="header">Store name</th>
+                        <th class="header">GPS location latitude</th>
+                        <th class="header">GPS location longitude</th>
+                        <th class="header">Birds eye Distance from home</th>
+                        <th class="header">Cost for trip</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
+
         <hr>
         <footer>
             <p>&copy; Lab Of Lieven</p>
