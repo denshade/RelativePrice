@@ -13,7 +13,7 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 }
 
 function deg2rad(deg) {
-  return deg * (Math.PI/180);
+    return deg * (Math.PI/180);
 }
 
 function recalculate()
@@ -45,6 +45,27 @@ function calculatePricePerKilometer()
     var pricePerKilometer = litersPerKilometer * pricePerLiter;
     return pricePerKilometer;
 }
+
+function populateStoreTableUsingMaps()
+{ // http://localhost:8080/store
+    
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: mylocation,
+      zoom: 15
+    });
+
+    service = new google.maps.places.PlacesService(map);
+    var mylocation = new google.maps.LatLng(50.9111401,3.5903328);
+
+    var request = {
+    location: mylocation,
+    radius: '10000',
+    types: ['store'],
+    keyword: ['Supermarket']
+  };
+
+    service.nearbySearch(request, renderStoreTableMaps);
+}    
 
 function populateStoreTable()
 { // http://localhost:8080/store
@@ -81,6 +102,39 @@ function renderStoreTable(json)
             cost.innerHTML      = pricePerKm * distanceCalculated * 2;
 
         });
+}
+
+
+function renderStoreTableMaps(places, status)
+{
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+        var pricePerKm = calculatePricePerKilometer();    
+        var current = 1;
+        $.each( places, function( key, place) {
+            
+            storetable = document.getElementById('storetable');
+            var row = storetable.insertRow(current);
+            var cell = 0;
+            var number = row.insertCell(cell++);
+            var storename = row.insertCell(cell++);
+            var latitude = row.insertCell(cell++);
+            var longitude = row.insertCell(cell++);
+            var distance = row.insertCell(cell++);
+            var cost = row.insertCell(cell++);
+            
+            var distanceCalculated = getDistanceFromLatLonInKm($('#latitude_float').val(), $('#longitude_float').val(), place.geometry.location.lat(), place.geometry.location.lng());
+
+            // Add some text to the new cells:
+            number.innerHTML    = current++;
+            storename.innerHTML = place.name;
+            latitude.innerHTML  = place.geometry.location.lat();
+            longitude.innerHTML = place.geometry.location.lng();
+            distance.innerHTML  = distanceCalculated + " km";
+            cost.innerHTML      = pricePerKm * distanceCalculated * 2;
+
+        });
+    }
 }
 
 function populateStorePriceTable()
