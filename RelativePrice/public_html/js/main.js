@@ -124,8 +124,27 @@ function loadUserData()
 
 function renderUserData(data)
 {
-        $('#latitude_float').val(data.lattitude);
-        $('#longitude_float').val(data.longitude);
-        $('#priceFuelPerLiter').val(data.pricePerLiter);
-        $('#fuelEfficiency').val(data.litersPerKm);
+    $('#latitude_float').val(data.lattitude);
+    $('#longitude_float').val(data.longitude);
+    $('#priceFuelPerLiter').val(data.pricePerLiter);
+    $('#fuelEfficiency').val(data.litersPerKm);
+}
+
+function addStore()
+{
+    var name = $('#name1').val();
+    var latitude = $('#gpslatitude1').val();
+    var longitude = $('#gpslongitude1').val();
+    var json = '{"store" : {"name":  "'+ name + '", "lattitude":  "'+ latitude + '",  "longitude":  "'+ longitude + '" }}';
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:5984/prices",
+        data: json,
+        contentType: "application/json",
+        dataType: "json",
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });
 }
