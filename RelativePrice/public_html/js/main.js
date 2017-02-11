@@ -55,11 +55,11 @@ function populateStoreTableUsingMaps()
     });
 
     service = new google.maps.places.PlacesService(map);
-    var mylocation = new google.maps.LatLng(50.9111401,3.5903328);
+    var mylocation = new google.maps.LatLng($('#latitude_float').val(), $('#longitude_float').val());
 
     var request = {
     location: mylocation,
-    radius: '10000',
+    radius: $("#radius").val(),
     types: ['store'],
     keyword: ['Supermarket']
   };
@@ -108,32 +108,32 @@ function renderStoreTable(json)
 function renderStoreTableMaps(places, status)
 {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-
+        storetable = document.getElementById('storetablebody');
         var pricePerKm = calculatePricePerKilometer();    
+        var currentLat = $('#latitude_float').val();
+        var currentLong = $('#longitude_float').val();
+        
         var current = 1;
-        $.each( places, function( key, place) {
-            
-            storetable = document.getElementById('storetable');
-            var row = storetable.insertRow(current);
-            var cell = 0;
-            var number = row.insertCell(cell++);
-            var storename = row.insertCell(cell++);
-            var latitude = row.insertCell(cell++);
-            var longitude = row.insertCell(cell++);
-            var distance = row.insertCell(cell++);
-            var cost = row.insertCell(cell++);
-            
-            var distanceCalculated = getDistanceFromLatLonInKm($('#latitude_float').val(), $('#longitude_float').val(), place.geometry.location.lat(), place.geometry.location.lng());
+        var lines = "";
+        var propNames = Object.getOwnPropertyNames(places);
+        for (var i = 0; i < places.length; i++)
+        {
+            var place = places[i];
+            var distanceCalculated = getDistanceFromLatLonInKm(currentLat, currentLong, place.geometry.location.lat(), place.geometry.location.lng());
 
             // Add some text to the new cells:
-            number.innerHTML    = current++;
-            storename.innerHTML = place.name;
-            latitude.innerHTML  = place.geometry.location.lat();
-            longitude.innerHTML = place.geometry.location.lng();
-            distance.innerHTML  = distanceCalculated + " km";
-            cost.innerHTML      = pricePerKm * distanceCalculated * 2;
-
-        });
+            var number    = current++;
+            var storename = place.name;
+            var latitude  = place.geometry.location.lat();
+            var longitude = place.geometry.location.lng();
+            var distance  = distanceCalculated + " km";
+            var cost      = pricePerKm * distanceCalculated * 2;
+            
+            var lines = lines + "<tr><td>" + number + "</td><td>"+storename+"</td><td>" + latitude + "</td>" + "<td>"+ longitude + "</td><td>" + distance + "</td><td>"+cost+"</td></tr>"
+            
+        }
+    
+        storetable.innerHTML = lines;
     }
 }
 

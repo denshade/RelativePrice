@@ -32,6 +32,9 @@
         <script src="js/main.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Pd5ki9zdB0li-rNN07uBmAreTA9znKI&libraries=places"></script>
         <script>
+                $.get("navigation.html", function(data){
+                    $("#nav-placeholder").replaceWith(data);
+                });
                     $(document).ready(function ()
                     {
                         populateStoreTableUsingMaps();
@@ -59,7 +62,7 @@
                         <th class="header">Cost for trip</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="storetablebody">
                 </tbody>
             </table>
         </div>
@@ -90,8 +93,18 @@
                             <label for="pricePerKm">Calculated price per km</label>
                             <input id="pricePerKm" type="text" readonly>
                         </div>
+                        <div>
+                            <label for="radius">Look radius</label>
+                            <select id="radius">
+                                <option value="1000">1 km</option>
+                                <option value="10000">10 km</option>
+                                <option value="50000">50 km</option>
+                            </select>
+                        </div>
                         <input type="submit" value="calculate price"/>
                         <input type="button" value="Get my location" name="location" onclick="getMyLocation()"/>
+                        <input type="button" value="Recalculate" name="location" onclick="populateStoreTableUsingMaps(); return false;"/>
+
                     </div>
                 </form >
             </div>
