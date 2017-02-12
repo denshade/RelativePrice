@@ -22,16 +22,20 @@
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/jq.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
         <link rel="stylesheet" type="text/css" href="css/jquery-gmaps-latlon-picker.css"/>
 
         <script src="js/main.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery.tablesorter.pager.js"></script>
         <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyA8Pd5ki9zdB0li-rNN07uBmAreTA9znKI"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA8Pd5ki9zdB0li-rNN07uBmAreTA9znKI"></script>
         <script src="js/jquery-gmaps-latlon-picker.js"></script>
         
         <script src="js/main.js"></script>
@@ -45,7 +49,35 @@
                 // call the tablesorter plugin
                 populateStorePriceTable();
             });
-
+    $( function() {
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+        ];
+        $( "#name" ).autocomplete({
+          source: availableTags
+        });
+  } );
         </script>
     </head>
     <body>
@@ -54,7 +86,7 @@
         <![endif]-->
         <div id="nav-placeholder"></div>
 
-        <div class="container">
+        <div class="container jumbotron transparant">
             <h1>Add store prices</h1>
             
             <div id="storeselection">
@@ -80,8 +112,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="header">#</td>
-                            <td class="header"><input type="text" id="name"/></td>
+                            <td class="header"><div class="ui-widget"><input type="text" id="name"/></div></td>
+                    
                             <td class="header"><input type="text" id="package"/></td>
                             <td class="header"><input type="text" id="price"/></td>
                             <td class="header"><input type="button" value="+" onclick="addPrice()"/></td>

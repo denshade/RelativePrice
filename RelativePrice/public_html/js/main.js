@@ -207,3 +207,22 @@ function addStore()
       }
     });
 }
+
+function addPrice()
+{
+    var name = $('#name').val();
+    var package = $('#package').val();
+    var price = $('#price').val();
+    var json = '{"store" : {"name":  "'+ name + '", "package":  "'+ package + '",  "price":  "'+ price + '" }}';
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:5984/storeprices",
+        data: json,
+        contentType: "application/json",
+        dataType: "json",
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });
+}
