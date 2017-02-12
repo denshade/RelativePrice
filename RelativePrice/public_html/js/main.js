@@ -114,25 +114,30 @@ function renderStoreTableMaps(places, status)
         var currentLong = $('#longitude_float').val();
         
         var current = 1;
-        var lines = "";
-        var propNames = Object.getOwnPropertyNames(places);
+        var stores = [];
         for (var i = 0; i < places.length; i++)
         {
             var place = places[i];
             var distanceCalculated = getDistanceFromLatLonInKm(currentLat, currentLong, place.geometry.location.lat(), place.geometry.location.lng());
 
-            // Add some text to the new cells:
-            var number    = current++;
-            var storename = place.name;
-            var latitude  = place.geometry.location.lat();
-            var longitude = place.geometry.location.lng();
-            var distance  = distanceCalculated + " km";
-            var cost      = pricePerKm * distanceCalculated * 2;
-            
-            var lines = lines + "<tr><td>" + number + "</td><td>"+storename+"</td><td>" + latitude + "</td>" + "<td>"+ longitude + "</td><td>" + distance + "</td><td>"+cost+"</td></tr>"
-            
+            stores.push({
+              "city" : place.vicinity,
+              "storename": place.name,
+              "longitude": place.geometry.location.lng(),
+              "latitude" : place.geometry.location.lat(),
+              "distance" : distanceCalculated + " km",
+              "cost" : pricePerKm * distanceCalculated * 2    
+            });            
         }
-    
+        stores.sort(function(a, b) {
+            return a.cost - b.cost;
+        });
+        var lines  = "";
+        for (var i = 0; i < stores.length; i++ )
+        {
+            var store = stores[i];
+            lines = lines + "<tr><td>"+store.storename+"</td><td>" + store.city + "</td><td>" + store.latitude + "</td>" + "<td>"+ store.longitude + "</td><td>" + store.distance + "</td><td>"+ store.cost +"</td></tr>"
+        }
         storetable.innerHTML = lines;
     }
 }
