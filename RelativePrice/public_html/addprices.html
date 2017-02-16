@@ -49,35 +49,7 @@
                 // call the tablesorter plugin
                 populateStorePriceTable();
             });
-    $( function() {
-        var availableTags = [
-          "ActionScript",
-          "AppleScript",
-          "Asp",
-          "BASIC",
-          "C",
-          "C++",
-          "Clojure",
-          "COBOL",
-          "ColdFusion",
-          "Erlang",
-          "Fortran",
-          "Groovy",
-          "Haskell",
-          "Java",
-          "JavaScript",
-          "Lisp",
-          "Perl",
-          "PHP",
-          "Python",
-          "Ruby",
-          "Scala",
-          "Scheme"
-        ];
-        $( "#name" ).autocomplete({
-          source: availableTags
-        });
-  } );
+    
         </script>
     </head>
     <body>
@@ -88,7 +60,6 @@
 
         <div class="container jumbotron transparant">
             <h1>Add store prices</h1>
-            
             <div id="storeselection">
                 <fieldset class="gllpLatlonPicker" id="_MAP_9191">
                     <input type="text" class="gllpSearchField"><input type="button" class="gllpSearchButton" value="search"><p></p>
@@ -98,10 +69,20 @@
                     </p>
                 </fieldset>
             </div>
-            
-            <p>Store location and calculated travel expenses.</p>
+            <p>The price we already know for this store</p>
+            <table id="storetable" class="table tablesorter">
+                 <thead>
+                        <tr>
+                            <th class="header">Product name</th>
+                            <th class="header">Package</th>   
+                            <th class="header">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storepricebody"></tbody>
+            </table>
+            <p>Add your prices here!</p>
             <form id="growTable">
-                <table class="table tablesorter" id="storetable">
+                <table class="table tablesorter">
                     <thead>
                         <tr>
                             <th class="header">Product name</th>

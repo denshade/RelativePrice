@@ -152,25 +152,14 @@ function populateStorePriceTable()
 
 function renderStorePrices(json)
 {
-            $.each( json.rows, function( key, val ) {
-            var store = val.doc.store;
-            storetable = document.getElementById('storeprice');
-            var row = storetable.insertRow(1);
-            var shop = row.insertCell(0);
-            var productName = row.insertCell(1);
-            var price = row.insertCell(2);
-            var package = row.insertCell(3);
-            var lastUpdate = row.insertCell(4);
-            
-            $.each( store.prices, function( key, val ) {
-                productName.innerHTML = val.brandname;
-                shop.innerHTML    = store.name;
-                price.innerHTML = val.priceInEuro;
-                package.innerHTML = val.package;
-                lastUpdate.innerHTML = new Date(val.lastupdateEpoch * 1000).toGMTString();
-            });            
-
-        });
+    storetable = $('#storepricebody');
+    var lines = "";
+    for (var i = 0; i < json.rows.length;i++)
+    {
+            var item = json.rows[i].doc.item;            
+            lines = lines + "<tr><td>"+item.name+"</td><td>" + item.package + "</td><td>" + item.price + "</td></tr>";
+    }
+    storetable.html(lines);
 }
 
 function loadUserData()
@@ -213,7 +202,7 @@ function addPrice()
     var name = $('#name').val();
     var package = $('#package').val();
     var price = $('#price').val();
-    var json = '{"store" : {"name":  "'+ name + '", "package":  "'+ package + '",  "price":  "'+ price + '" }}';
+    var json = '{"item" : {"name":  "'+ name + '", "package":  "'+ package + '",  "price":  "'+ price + '" }}';
     $.ajax({
         type: "POST",
         url: "http://localhost:5984/storeprices",
