@@ -34,6 +34,7 @@ div.digg {float: right; margin-left: 20px;}
 #skyscraper.wide > div { display: inline-block; margin-right: 20px;  margin-bottom: 0;}
 
 .transparant {
+    background-color: whitesmoke;
      opacity: 0.9;
     filter: alpha(opacity=90); /* For IE8 and earlier */
 }
